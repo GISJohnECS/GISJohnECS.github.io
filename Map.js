@@ -1,6 +1,6 @@
       /*
-	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
-	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Creator grants users the right to use this code however google maps API must be replaced with your own tor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io otherwise you must modify it 
 	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
  Copyright (C) John Robert Lister 2016
 */
