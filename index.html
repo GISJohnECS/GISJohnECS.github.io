@@ -3,6 +3,7 @@
 <title>GIS John</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <body id="myPage">
@@ -50,20 +51,66 @@
 </div>
 
 <div class="w3-display-container w3-animate-opacity">
-  <img class="testimg" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISjohn.png" alt="boat" style="width:100%;min-height:350px;max-height:400px;">
-  <div class="w3-container w3-display-bottomleft w3-margin-bottom">  
-    <button href="http://GISJohnECS.github.io/CenusApp.html" class="w3-btn w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">OPEN SOURCE CENSUS DATA</button>
+  <div class="w3-content" style="max-width:800px;position:relative">
+
+<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" style="width:100%">
+<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Googlemaps.png" style="width:100%">
+<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" style="width:100%">
+<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" style="width:100%">
+
+<a class="w3-btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)"><</a>
+<a class="w3-btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">></a>
+
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
+  <div class="w3-container w3-display-bottomleft w3-margin-bottom">   
+    <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">What can we do for you?</button>
   </div>
+  </div>
+</div>
+<!-- Modal -->
+<div id="id01" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-8 w3-animate-top">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn"><i class="fa fa-remove"></i></span>
+        <h4>Email us with any business propositions, any requests, anything at all and we will get back to you<i class="fa fa-smile-o"></i></h4>
+      </header>
+      <div class="w3-container">
+        </p>
+        <p>Email us <a class="w3-btn" href="/w3css/default.asp">GISJohnecs@gmail.com</a> or follow us on <a class="w3-btn" href="/w3css/default.asp">Twitter</a></p>
+      </div>
+      <footer class="w3-container w3-teal">
+        <p>Have a great day!</p>
+      </footer>
+    </div>
 </div>
 
 <div id="myFooter">
-  <div class="w3-row-padding w3-center w3-padding-hor-64">
+  <div class="w3-row-padding w3-center w3-padding-hor-64 w3-theme-13">
     <div class="w3-third w3-margin-bottom">
       <ul class="w3-ul w3-border w3-hover-shadow">
         <li class="w3-theme">
           <p class="w3-xlarge">Advertise Here</p>
         </li>
-        <li class="w3-padding-hor-16"><b>Simple Map</b></li>
         <li class="w3-padding-hor-16">
           <h2 class="w3-wide"><i class="fa fa-usd"></i> 5</h2>
           <span class="w3-opacity">Monthly</span>
@@ -79,7 +126,6 @@
         <li class="w3-theme">
           <p class="w3-xlarge">Advertise Here</p>
         </li>
-        <li class="w3-padding-hor-16"><b>Simple Map</b></li>
         <li class="w3-padding-hor-16">
           <h2 class="w3-wide"><i class="fa fa-usd"></i> 5</h2>
           <span class="w3-opacity">Monthly</span>
@@ -95,7 +141,6 @@
         <li class="w3-theme">
           <p class="w3-xlarge">Advertise Here</p>
         </li>
-        <li class="w3-padding-hor-16"><b>Simple Map</b></li>
         <li class="w3-padding-hor-16">
           <h2 class="w3-wide"><i class="fa fa-usd"></i> 5</h2>
           <span class="w3-opacity">Monthly</span>
@@ -146,17 +191,17 @@
 <div class="w3-row"><br>
 
 <div class="w3-third">
-  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/John.jpg" alt="Boss" style="width:35%" class="w3-circle w3-hover-opacity">
+  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/John.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
   <h3>John Robert Lister</h3>
   <p>GIS Technician*Student*</p>
 </div>
 <div class="w3-third">
-  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Odie.jpg" alt="Boss" style="width:35%" class="w3-circle w3-hover-opacity">
+  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Odie.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
   <h3>Odie the pitbull</h3>
   <p>Director of animal affairs</p>
 </div>
 <div class="w3-third">
-  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Kaci.jpg" alt="Boss" style="width:35%" class="w3-circle w3-hover-opacity">
+  <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Kaci.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
   <h3>Kaci Alvarez</h3>
   <p>Director of Social Media*Student*</p>
 </div>
@@ -171,19 +216,29 @@
 
 
 <!-- Container -->
-<div class="w3-container w3-padding-hor-64 w3-theme-l5">
-
-  <div class="w3-row">
-  
-    <div class="w3-col m5">
+<div class="w3-container w3-padding-hor-32 w3-theme-l2">
 	
-    <div class="w3-padding-hor-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
-      <h3>Address</h3>
-      <p>We are free lancing right now!</p>
-      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>Everywhere!</p>
+  <div class="w3-row w3-center">
+  
+    <div class="w3-col m5 w3-third w3-center w3-theme-12">
+	
+    <div class="w3-padding-hor-16 w3-theme-12"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
+      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>Serving Africa</p>
       <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>GISJohnecs@gmail.com</p>
     </div>
+	
+	<div class="w3-col m5 w3-third w3-center w3-theme-12">
+	
+<div class="w3-padding-hor-16 w3-theme-12"><span class="w3-xlarge w3-border-teal w3-bottombar">Follow Us</span></div>
+  <a class="w3-btn-floating w3-teal" href="Link to Facebook Page" title="Facebook"><i class="fa fa-facebook"></i></a>
+  <a class="w3-btn-floating w3-teal" href="Link to Twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+  <a class="w3-btn-floating w3-teal" href="Google Plus+" title="Google +"><i class="fa fa-google-plus"></i></a>
+  <a class="w3-btn-floating w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+			
+</div>
     </div>
+	
+	
   </div>
 </div>
 
@@ -198,7 +253,7 @@ var mapProp = {
   center:SouthAfrica,
   zoom:5,
   scrollwheel:false,
-  draggable:true,
+  draggable:false,
   mapTypeId:google.maps.MapTypeId.ROADMAP
   };
 
@@ -276,11 +331,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-hor-32 w3-theme-d1 w3-center">
-  <h4>Follow Us</h4>
-  <a class="w3-btn-floating w3-teal" href="Link to Facebook Page" title="Facebook"><i class="fa fa-facebook"></i></a>
-  <a class="w3-btn-floating w3-teal" href="Link to Twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-  <a class="w3-btn-floating w3-teal" href="Google Plus+" title="Google +"><i class="fa fa-google-plus"></i></a>
-  <a class="w3-btn-floating w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
   <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 
   <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">

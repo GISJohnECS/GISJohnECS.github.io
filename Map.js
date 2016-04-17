@@ -1,4 +1,10 @@
-      function initialize() { //Initialize the function that is going to create the map 
+      /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
+	  function initialize() { //Initialize the function that is going to create the map 
         var baseId = '172FC7hM8mO9cDQzgAs4zRFBCWQMcqp1u_jLYWAmv'; //creating variable for the main specie table layer id
         var baseColumn = 'geometry'; //creating a variable for the locationcollumn of the table
 
@@ -9,7 +15,9 @@
         });
         var infoWindow = new google.maps.InfoWindow(); //create a variable for the infowindows
         
-        
+           /*
+ Copyright (C) John Robert Lister 2016
+*/
         var layer = new google.maps.FusionTablesLayer({ //create a variable for the main specie table layer
           query: {
             select: baseColumn, //select values from the location column(the geocoded column)
@@ -56,7 +64,9 @@
         
             window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=800, height=800"); //create the constraints for the new window, width content etc content must be link to fusion table with filter option and toolbar for adding data
 
-}
+}   /*
+ Copyright (C) John Robert Lister 2016
+*/
       });
           var layer2 = new google.maps.FusionTablesLayer({ //Load ArcTableMangrove Layer
         query: {
@@ -68,7 +78,12 @@
         options: {
             suppressInfoWindows: true
           }
-        });
+        }); /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
 
         google.maps.event.addListener(layer1, 'click', function(e) {
           infoWindow.setContent(e.infoWindowHtml +
@@ -78,7 +93,12 @@
           document.getElementById("myButton").onclick = function () {
          window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=800, height=800");
 }
-        
+         /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
       });
    var layer3 = new google.maps.FusionTablesLayer({ //Load ArcTableMarch Layer
         query: {
@@ -89,14 +109,21 @@
       templateId: 2,
         options: {
             suppressInfoWindows: true
-          }
+          }   /*
+ Copyright (C) John Robert Lister 2016
+*/
         });
 
         google.maps.event.addListener(layer3, 'click', function(e) {
           infoWindow.setContent(e.infoWindowHtml +
               '<button id="myButton" class="float-left submit-button" >Click to view Interactive Table</button>');
           infoWindow.setPosition(e.latLng);
-          infoWindow.open(map);
+          infoWindow.open(map); /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
           document.getElementById("myButton").onclick = function () {
          window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=800, height=800");
 }
@@ -119,7 +146,9 @@
           infoWindow.open(map);
           document.getElementById("myButton").onclick = function () {
          window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=800, height=800");
-}
+}   /*
+ Copyright (C) John Robert Lister 2016
+*/
     });
            google.maps.event.addDomListener(document.getElementById('delivery'), //create listener for the drop down menu
                                             'change', function() { //initialize the function that will sort the layers
@@ -129,25 +158,36 @@
            function updateMap(layer, baseId, baseColumn) { //this is the function to update the map based on the specified variables
              var province = document.getElementById('delivery').value; //create specie variable the will select values based from species in the drop down list
              if (province) { //create method to update the map by value selected from drop down list
-          layer.setOptions({
+          layer.setOptions({   /*
+ Copyright (C) John Robert Lister 2016
+*/
             query: {
               select: baseColumn, //select values location from location column variable
               from: baseId, //select the main species table
               where: "PROVNAME = '" + province + "'" //specify that the values displayed from table must match the value from dropdown list by their SpecieID
             },
             suppressInfoWindows: true
-          });
+          });   /*
+ Copyright (C) John Robert Lister 2016
+*/
              } else { //if it doesnt match the above specifications 
           layer.setOptions({
             query: {
               select: baseColumn,
               from: baseId
-            }
+            }   /*
+ Copyright (C) John Robert Lister 2016
+*/
           });
         }
       }
            google.maps.event.addDomListener(document.getElementById('Collection'), 'change', function () { //create the click listener for the collection dropdown list
-        
+         /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
       /* 
        
              if (this.value == "layer1") { <!--If the value selected is the ArcTableJan turn all layers off but it-->
@@ -184,10 +224,19 @@
               from: newCollectionlayer 
             }
         });
-    });
+    });   /*
+ Copyright (C) John Robert Lister 2016
+*/
 }
 
           
-  
-
+   /*
+	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
+	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
+	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
+ Copyright (C) John Robert Lister 2016
+*/
+   /*
+ Copyright (C) John Robert Lister 2016
+*/
                                        google.maps.event.addDomListener(window, 'load', initialize); //load the AddDOMLSItener
