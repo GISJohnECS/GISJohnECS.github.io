@@ -695,35 +695,40 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <body>
 
  <!-- Navbar -->
-<ul class="w3-navbar w3-theme w3-top w3-left-align w3-large" style="z-index:4;">
+<ul class="w3-navbar w3-theme w3-grey w3-top w3-left-align w3-large" style="z-index:4;">
   <li class="w3-opennav w3-right w3-hide-large">
     <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1">GISJohn</a></li>
-  <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white">Home</a></li>
+  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-globe"><i class="fa fa-globe w3-margin-right"></i>Open Census</a></li>
+  <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-circle w3-center" style="width:70px"></a></li>
   <li class="w3-hide-small"><a href="#" class="w3-hover-white">What is this?</a></li>
-  <li class="w3-hide-small"><a href="#" class="w3-hover-white">Downloadable Data</a></li>
-</ul>
+  <li class="w3-hide-small"><a onclick="document.getElementById('id01').style.display='block'" class="w3-hover-white">Hows the Rand?</a></li> <!-- <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">What can we do for you?</button> -->
+
+ </ul>
     <title>Open Census App</title>
-    Layers:
+ 
 <<!-- Sidenav -->
-<nav class="w3-sidenav w3-collapse w3-theme-l5 w3-animate-left" style="z-index:3;width:250px;margin-top:21px;">
+<nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-ana-teal-blue" style="z-index:3;width:250px;margin-top:21px;">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
     <i class="fa fa-remove"></i>
   </a>
-  <h4><b>Menu</b></h4>
-<select id="Collection"> <!--//The Id of the drop down list that will change the layers based on their table id-->
+  <a href="#" class="w3-border-bottom w3-large"><img src="http://www.w3schools.com/images/w3schools.png" style="width:80%;"></a>
+   <div class="w3-padding-hor-8"> </div>
+<select class="w3-dropdown-hover w3-border" id="Collection"> <!--//The Id of the drop down list that will change the layers based on their table id-->
     
-  <option value="">----Select Dataset----</option>
+  <option value="">Select Dataset</option>
   <option value="172FC7hM8mO9cDQzgAs4zRFBCWQMcqp1u_jLYWAmv">Unemployment</option> <!--//value is the id of the table-->
-  <option value="13ZN5UX5Qk-gQcx0q6Zs-w28oGhgx4R3m-sxwU3O-">Mangroves</option>
-    <option value="1nRmxoGAlKTOpf58DHBXa-AE0Vptdkj9U0PdLgOtr">March</option>
-    <option value="1NAY256IT53gtPoN2Ic5J66zJNHJ-scFUtdRA7qLW">CNSB</option>
+  <option value="13ZN5UX5Qk-gQcx0q6Zs-w28oGhgx4R3m-sxwU3O-">Population</option>
+    <option value="1nRmxoGAlKTOpf58DHBXa-AE0Vptdkj9U0PdLgOtr">GDP Per Capita</option>
+    <option value="1NAY256IT53gtPoN2Ic5J66zJNHJ-scFUtdRA7qLW">Household Size</option>
   </select>
+  
+ <div class="w3-padding-hor-8"> </div>
  
  <!--//The Drop down menu that will display the markers of selected species-->
-    <select id="delivery" onchange="updateMap();"> <!--//When a value is selected the the updateMap(); is activated-->
-      <option value="">----Province---
+    <select class="w3-dropdown-hover" id="delivery" onchange="updateMap();"> <!--//When a value is selected the the updateMap(); is activated-->
+	<span class="w3-dropdown-content w3-border">
+      <option value=""><a class="w3-large" >Province</a>
 <option value="Eastern Cape">Eastern Cape</option>
 <option value="Western Cape">Western Cape</option>
 <option value="Free State">Free State</option>
@@ -733,16 +738,53 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <option value="Northern Cape">Northern Cape</option>
 <option value="KwaZulu-Natal">KwaZulu-Natal</option>
 <option value="Gauteng">Gauteng</option>
-</option>     
+</option> 
+</span>    
 </select>
- <div class="w3-whole w3-container">
-      <p class="w3-border w3-padding-large w3-padding-hor-32 w3-center">AD</p>
-      <p class="w3-border w3-padding-large w3-padding-hor-64 w3-center">AD</p>
+
+ <div class="w3-padding-hor-16"> </div>
+ 
+<!-- This is for the Geocoder-->
+<div id="floating-panel">
+      <input id="address" class="w3-input w3-border-teal" type="textbox" value="Durban, KZN">
+      <input id="submit" class="w3-btn w3-teal w3-padding-medium " type="button" value="Get Location">
+    </div>
+	
+	 <div class="w3-padding-hor-16"> </div>
+ <div class="w3-whole w3-container w3-ana-teal-blue">
+ <div class="w3-padding-hor-16 w3-theme-12 w3-light-grey"><span class="w3-xlarge w3-border-teal w3-bottombar">Powered by:</span></div>
+      <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-square w3-center" style="width:110px"></a></li></p>
+      <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GoogleMaps.png" class="w3-right-side w3-square w3-center" style="width:110px"></a></li></p>
 	  <p class="w3-border w3-padding-large w3-padding-hor-64 w3-center">AD</p>
 	  <p class="w3-border w3-padding-large w3-padding-hor-64 w3-center">AD</p>
     </div>
   </div>
 </nav>
+
+<!-- Modal -->
+<div id="id01" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-8 w3-animate-top">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn"><i class="fa fa-remove"></i></span>
+        <h4>Currency Converter<i class="fa fa-smile-o"></i></h4>
+      </header>
+      <div class="w3-container">
+        <!--Currency Converter widget by FreeCurrencyRates.com -->
+
+<div id='gcw_mainFDYskf4FI' class='gcw_mainFDYskf4FI'></div>
+<a id='gcw_siteFDYskf4FI' href='http://freecurrencyrates.com/en/'>FreeCurrencyRates.com</a>
+<script>function reloadFDYskf4FI(){ var sc = document.getElementById('scFDYskf4FI');if (sc) sc.parentNode.removeChild(sc);sc = document.createElement('script');sc.type = 'text/javascript';sc.charset = 'UTF-8';sc.async = true;sc.id='scFDYskf4FI';sc.src = 'http://freecurrencyrates.com/en/widget-horizontal-editable?iso=XUMGBPUSDEUR&df=2&p=FDYskf4FI&v=fit&source=fcr&width=620&width_title=210&firstrowvalue=1&thm=666666,000000,333333,333333,FFFFFF,666666,555555,ffffff,ffffff&title=Currency%20Converter&tzo=300';var div = document.getElementById('gcw_mainFDYskf4FI');div.parentNode.insertBefore(sc, div);} reloadFDYskf4FI(); </script>
+<!-- put custom styles here: .gcw_mainFDYskf4FI{}, .gcw_headerFDYskf4FI{}, .gcw_ratesFDYskf4FI{}, .gcw_sourceFDYskf4FI{} -->
+<!--End of Currency Converter widget by FreeCurrencyRates.com -->
+    <div class="w3-container w3-theme-l1">
+    </div>
+  </div></div>
+  
+      <footer class="w3-container w3-teal">
+        <p>Have a great day!</p>
+      </footer>
+    </div>
+
 
 <!-- Overlay effect when opening sidenav on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"></div>
@@ -752,19 +794,15 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <div class="w3-main" style="margin-top:25px">
 
   <div id="myFooter">
-    <div class="w3-container w3-theme-l1 w3-padding-hor-16">
-      <h4>Header</h4>
-    <div class="w3-container w3-theme-l1">
- 
-    </div>
-  </div>
+    <div class="w3-container w3-grey w3-padding-hor-16">
+
 <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css"
         rel="stylesheet" type="text/css">
     <script type="text/javascript"
-        src="http://maps.google.com/maps/api/js?key=DISABLEDAPI&sensor=false"></script> 
+        src="http://maps.google.com/maps/api/js?key=AIzaSyBbC9hHZT51Sm2ZCFok4ciJg_9iyss8h4A&sensor=false"></script> 
     
-    <script type="text/javascript" src="http://GISJohnECS.github.io/Map.js"></script> 
-    <div id="map" width="100%"></div>  
+    <script type="text/javascript" src="C:\Users\User\Desktop\DAMap\GISJohnECS.github.io\map.js"></script> 
+    <div id="map" width="100%" height="300px"></div>  
   </div>
 </div>
 </div>

@@ -4,15 +4,55 @@
 	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
  Copyright (C) John Robert Lister 2016
 */
-	  function initialize() { //Initialize the function that is going to create the map 
+	  function initialize() { //Initialize the function that is going to create the map // Create an array of styles.
+  var styles = [
+    {
+      stylers: [
+        { hue: "#27C993" },
+        { saturation: -5 }
+      ]
+    },{
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        { lightness: 100		},
+		 { hue: "#ffffff" },
+        { visibility: "simplified" }
+      ]
+    },{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }
+  ];
+  
+  // Create a new StyledMapType object, passing it the array of styles,
+  // as well as the name to be displayed on the map type control.
+  var styledMap = new google.maps.StyledMapType(styles,
+    {name: "Styled Map"});
+	  
         var baseId = '172FC7hM8mO9cDQzgAs4zRFBCWQMcqp1u_jLYWAmv'; //creating variable for the main specie table layer id
         var baseColumn = 'geometry'; //creating a variable for the locationcollumn of the table
 
         var map = new google.maps.Map(document.getElementById('map'), { //create a variable for the google map
-          center: new google.maps.LatLng(-26, 25), //centre it over guinea
+          center: new google.maps.LatLng(-29, 25), //centre it over guinea
           zoom: 5, //zoom level where all points are visible
-          mapTypeId: google.maps.MapTypeId.ROADMAP //the maptypeId
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map-style'] //the maptypeId
         });
+		
+		//Set KMZ made from ArcMAP, Cities, Borders
+		// var ctaLayer = new google.maps.KmlLayer({
+        //    url: 'http://GISJohnECS.github.io/Cities.kml'
+        //});
+	 //ctaLayer.setMap(map);
+	 
+	 
+		//Associate the styled map with the MapTypeId and set it to display.
+  map.mapTypes.set('map_style', styledMap);
+  map.setMapTypeId('map_style');
+
         var infoWindow = new google.maps.InfoWindow(); //create a variable for the infowindows
         
            /*
@@ -33,11 +73,11 @@
         
         google.maps.event.addListener(layer, 'click', function(e) { //create a click listener for the info window
           infoWindow.setContent(e.infoWindowHtml + //set the content for the info window, here i have said i want the info window to match the info window i have set up for that table
-                                '<button id="myButton" class="float-left submit-button" >Click to view Interactive Table</button>'); //add a button that will open a window displaying the specie table, users can filter values and add new values from here
+                                ''); //add a button that will open a window displaying the specie table, users can filter values and add new values from here
           infoWindow.setPosition(e.latLng); //set the info window position
           infoWindow.open(map); //open the info window
           document.getElementById("myButton").onclick = function () { //create the onclick funtion of the button that will open the window
-            window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=no, scrollbars=yes, resizable=yes, top=500, left=500, width=800, height=800"); //create the constraints for the new window, width content etc content must be link to fusion table with filter option and toolbar for adding data
+            window.open("https://www.google.com/fusiontables/DataSource?docid=1qK80aa74L4SWqWxPoaNb3_Q8hIJ6MiPXdec4waFQ", "_blank", "toolbar=no, scrollbars=yes, resizable=yes, top=500, left=500, width=900, height=800"); //create the constraints for the new window, width content etc content must be link to fusion table with filter option and toolbar for adding data
 }
       });
         
@@ -56,7 +96,7 @@
 
         google.maps.event.addListener(layer1, 'click', function(e) { //create a click listener for the info window
           infoWindow.setContent(e.infoWindowHtml + //set the content for the info window, here i have said i want the info window to match the info window i have set up for that table
-               '<button id="myButton" class="float-left submit-button" >Click to view Interactive Table</button>');//add a button that will open a window displaying the specie table, users can filter values and add new values from here
+               '');//add a button that will open a window displaying the specie table, users can filter values and add new values from here
         
           infoWindow.setPosition(e.latLng);//set the info window position
           infoWindow.open(map);//open the info window
@@ -87,7 +127,7 @@
 
         google.maps.event.addListener(layer1, 'click', function(e) {
           infoWindow.setContent(e.infoWindowHtml +
-              '<button id="myButton" class="float-left submit-button" >Click to view Interactive Table</button>');
+              '');
           infoWindow.setPosition(e.latLng);
           infoWindow.open(map);
           document.getElementById("myButton").onclick = function () {
@@ -116,7 +156,7 @@
 
         google.maps.event.addListener(layer3, 'click', function(e) {
           infoWindow.setContent(e.infoWindowHtml +
-              '<button id="myButton" class="float-left submit-button" >Click to view Interactive Table</button>');
+              '');
           infoWindow.setPosition(e.latLng);
           infoWindow.open(map); /*
 	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
@@ -181,8 +221,30 @@
           });
         }
       }
+	  
+	  //https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple
+	   var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+		function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Google is telling GISJohn that the geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
            google.maps.event.addDomListener(document.getElementById('Collection'), 'change', function () { //create the click listener for the collection dropdown list
-         /*
+        
+		/*
 	  Creator grants users the right to use this code however google maps API must be replaced with your ownerDocumentor you are violation of the copyright
 	  YOU MUST CITE THIS CODE as belonging to GISJohnECS.github.io
 	  Copyright exists in this code for its original creation 2015 & its adapation in 2016
