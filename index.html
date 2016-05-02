@@ -1,302 +1,161 @@
-<!DOCTYPE html>
 <html>
-<title>GIS John</title>
+<head>
+<title>Open Census Apllication</title>
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<body id="myPage">
-
-<!-- Side Navigation on click -->
-<nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none;z-index:2">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-xxxlarge w3-text-teal">Close
-    <i class="fa fa-remove"></i>
-  </a>
-  <a href="http://GISJohnECS.github.io/CenusApp.html">Under Development</a>		
-  <a href="javascript:void(0)">Under Development</a>		
-  <a href="javascript:void(0)">Link 3</a>		
-  <a href="javascript:void(0)">Link 4</a>		
-  <a href="javascript:void(0)">Link 5</a>		
-</nav>
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+.w3-sidenav a,.w3-sidenav h4{padding:12px;}
+.w3-navbar a{padding-top:12px !important;padding-bottom:12px !important;}
+      #map {
+        height: 600px;
+      }
+</style>
 
 <!-- Navbar -->
-<div class="w3-top">
- <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-  <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-    <a class="w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+<ul class="w3-navbar w3-theme w3-grey w3-top w3-left-align w3-large" style="z-index:4;">
+  <li class="w3-opennav w3-right w3-hide-large">
+    <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="#" class="w3-teal"><i class="fa fa-globe w3-margin-right"></i>GISJohn</a></li>
-  <li class="w3-hide-small"><a href="http://GISJohnECS.github.io/CenusApp.html" class="w3-hover-white">About us</a></li>
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a href="#" class="w3-hover-white" title="Notifications">Solutions for the People<i class="fa fa-caret-down"></i></a>     
-    <div class="w3-dropdown-content w3-white w3-card-4">
-      <a href="">Under Development</a>
-      <a href="#">Link</a>
-      <a href="#">Link</a>
-    </div>
-  </li>
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a href="#" class="w3-hover-white" title="Notifications">Solutions for Business<i class="fa fa-caret-down"></i></a>     
-    <div class="w3-dropdown-content w3-white w3-card-4">
-      <a href="">Under Development</a>
-      <a href="#">Link</a>
-      <a href="#">Link</a>
-    </div>
-  </li>
-  <li class="w3-hide-small w3-right"><a href="#" class="w3-hover-teal" title="Search"><i class="fa fa-search"></i></a></li>
+  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-globe"><i class="fa fa-globe w3-margin-right"></i>Rate of Household Access to Electricity for Municipal Districts of South Africa, Census 2011</a></li>
+  <li class="w3-hide-small"><a onclick="document.getElementById('id02').style.display='block'" class="w3-hover-white">Things to Note</a></li>
+  
+  <li class="w3-hide-small"><a onclick="document.getElementById('id01').style.display='block'" class="w3-hover-white">Map Legend</a></li> <!-- <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">What can we do for you?</button> -->
+
  </ul>
-</div>
+    <title>Open Census App</title>
+ 
+<<!-- Sidenav -->
+<nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-ana-teal-blue" style="z-index:3;width:250px;margin-top:21px;">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <a href="#" class="w3-border-bottom w3-large"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/CBI.png" style="width:80%;"></a>
+ 
+<div class="w3-padding-hor-8"> </div>
+ <form class="w3-container w3-card-4">
+<li class="w3-dropdown-hover w3-padding-hor-4 w3-light-grey ">
+    <a href="#"  class="fa fa-bars w3-margin-right  w3-medium w3-border-teal w3-bottombar">Census Base Layers</a>
+    <div class="w3-dropdown-content w3-white w3-card-4 w3-padding-hor-4">
+ <input class="w3-check" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"/>
+<label class="w3-validate ">Lighting</label></br>
+<input class="w3-check" type="checkbox"  id="layer_02" onclick="toggleLayers(1);"/>
+<label class="w3-validate">Cooking</label></br>
+<input class="w3-check" type="checkbox"  id="layer_03" onclick="toggleLayers(2);"/>
+<label class="w3-validate">Heating</label></br>
+ </li>
 
-</div>
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:43px;">
-  <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a href="">Under Development</a></li>
-    <li><a href="#">Link 2</a></li>
-    <li><a href="#">Link 3</a></li>
-  </ul>
-</div>
+ 
+ <div class="w3-padding-hor-8"> </div>
+  <li class="w3-dropdown-hover w3-padding-hor-4 w3-light-grey ">
+    <a href="#"  class="fa fa-bars w3-margin-right  w3-medium w3-border-teal w3-bottombar">Additional Items</a>
+    <div class="w3-dropdown-content w3-white w3-card-4 w3-padding-hor-4">
+<input class="w3-check" type="checkbox"  id="layer_04" onclick="toggleLayers(3);"/>
+<label class="w3-validate">Borders</label></br>
+<input class="w3-check" type="checkbox"  id="layer_05" onclick="toggleLayers(4);"/>
+<label class="w3-validate">National Grid </label></br>
+<input class="w3-check" type="checkbox"  id="layer_07" onclick="toggleLayers(5);"/>
+<label class="w3-validate">Cities</label></br>
+<input class="w3-check" type="checkbox"  id="layer_08" onclick="toggleLayers(6);"/>
+<label class="w3-validate">Proportional Bar Chart</label></br>
+</li>
 
-<div class="w3-display-container w3-dark-grey w3-animate-opacity">
-  <div class="w3-content" style="width: 100%;max-width:800px;position:relative">
+ <div class="w3-padding-hor-8"> </div>
+ <li class="w3-dropdown-hover w3-padding-hor-4 w3-light-grey ">
+    <a href="#"  class="fa fa-bars w3-margin-right  w3-medium w3-border-teal w3-bottombar"> Power Station Type</a>
+    <div class="w3-dropdown-content w3-white w3-card-4 w3-padding-hor-4">
+      <input class="w3-check" type="checkbox"  id="Coal Fire" onclick="toggleLayers(7);"/>
+<label class="w3-validate">Coal-Fired</label></br>
+      <input class="w3-check" type="checkbox"  id="Diesel Gas" onclick="toggleLayers(8);"/>
+<label class="w3-validate">Diesel Gas Turbine</label></br>
+      <input class="w3-check" type="checkbox"  id="Hydro Electric" onclick="toggleLayers(9);"/>
+<label class="w3-validate">Hydro Electric</label></br>
+<input class="w3-check" type="checkbox"  id="Nuclear Power" onclick="toggleLayers(10);"/>
+<label class="w3-validate">Nuclear Power</label></br>
+    </div>
+  </li>
+ </div>
+ </form>
 
-<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Africa.jpg"  style="width:100%;height:400px">
-<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/JHB.JPG" style="width:100%;height:400px">
-<img class="mySlides" src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Children.jpg" style="width:100%;height:400px">
-<div class="w3-display-middle w3-large">
-    <h1 class="w3-jumbo w3-text-white w3-wide w3-bottom-right"><b>Our Africa...</b></h1>
+<!-- This is for the Geocoder-->
+<div id="floating-panel">
+      <input id="address" class="w3-input w3-border-teal" type="textbox" value="Durban, KZN">
+      <input id="submit" class="w3-btn w3-teal w3-padding-medium " type="button" value="Get Location">
+    </div>
+	
+	 <div class="w3-padding-hor-16"> </div>
+ <div class="w3-whole w3-container w3-ana-teal-blue">
+ <div class="w3-padding-hor-16 w3-theme-12 w3-light-grey"><span class="w3-xlarge w3-border-teal w3-bottombar">Powered by:</span></div>
+      <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-square w3-center" style="width:110px"></a></li></p>
+      <li class="w3-hide-small"><a href="http://gisjohnecs.github.io/" class="w3-hover-white"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GoogleMaps.png" class="w3-right-side w3-square w3-center" style="width:110px"></a></li></p>
+    </div>
   </div>
-<a class="w3-btn" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)"><</a>
-<a class="w3-btn" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">></a>
+</nav>
 
-</div>
+	    
+<!--Here is the Modal-->
 
-<script>
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length} ;
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-</script>
-  <div class="w3-container w3-display-bottomleft w3-margin-bottom">   
-    <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">What can we do for you?</button>
-  </div>
-  </div>
-</div>
-
-<!-- Modal -->
 <div id="id01" class="w3-modal w3-animate-opacity">
     <div class="w3-modal-content w3-card-8 w3-animate-top">
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn"><i class="fa fa-remove"></i></span>
-        <h4>GIS John Applications will be up and running soon, we are currently undergoing development<i class="fa fa-smile-o"></i></h4>
+        <h4>Legend</h4>
       </header>
       <div class="w3-container">
-        </p>
-        <p>Email us <a class="w3-btn" href="/w3css/default.asp">GISJohnecs@gmail.com</a> or follow us on <a class="w3-btn" href="/w3css/default.asp">Twitter</a></p>
+        <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Legend.png" class="w3-right-side w3-square w3-center" style="width:700px">
       </div>
       <footer class="w3-container w3-teal">
-        <p>Have a great day!</p>
+        <p>Census Data obtained from: http://www.statssa.gov.za/census/census_2011/census_products/ ,</br>
+           The individual Census Reports were compiled by GISJohn's John Robert Lister.</br>
+           Power Station data was obtained from http://www.eskom.co.za/Whatweredoing/ElectricityGeneration/PowerStations/Pages/Power_Stations_And_Pumped_Storage_Schemes.aspx </br>
+		   South Africa Municipal District Shapefile, obtained from the Municipal Demarcation Board of South Africa</br></p>
       </footer>
     </div>
 </div>
 
-<div id="myFooter">
-  <div class="w3-row-padding w3-animate-fade w3-grey w3-center w3-padding-hor-16 w3-theme-11">
-    <div class="w3-third w3-margin-bottom w3-animate-fade">
-      <ul class="w3-ul w3-border w3-hover-shadow">
-      <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-square w3-center" style="width:400px">
-        <li class="w3-theme-l5 w3-padding-hor-16">
-          <button class="w3-btn w3-teal w3-padding-large"><i class="fa fa-check"></i> Get this Option</button>
-        </li>
-      </ul>
-    </div>
-
-      <div class="w3-third w3-margin-bottom">
-      <ul class="w3-ul w3-border w3-hover-shadow">
-        <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-square w3-center" style="width:400px">
-        <li class="w3-theme-l5 w3-padding-hor-16">
-          <button class="w3-btn w3-teal w3-padding-large"><i class="fa fa-check"></i> Get this Option</button>
-        </li>
-      </ul>
-    </div>
-
-        <div class="w3-third w3-margin-bottom">
-      <ul class="w3-ul w3-border w3-hover-shadow">
-        <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/GISJohn.png" class="w3-right-side w3-square w3-center" style="width:400px">
-        <li class="w3-theme-l5 w3-padding-hor-16">
-          <button class="w3-btn w3-teal w3-padding-large"><i class="fa fa-check"></i> Get this Option</button>
-        </li>
-      </ul>
+<!--Modal 2 -->
+<div id="id02" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-8 w3-animate-top">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-closebtn"><i class="fa fa-remove"></i></span>
+        <h4>Important!</h4>
+      </header>
+      <div class="w3-container">
+        Things to note:
+		The National Grid Graphic, is not locationally Accurate, it serves as merely a guide for understanding the general location of the national grid.
+		
+		The Bar Chart Symbol, represents the dstribution of Electricity for each Province, between the Categories, Cooking, Heating, and Lighting, 
+		The charts that have are more equal in length show the distribution of electricity is good.
+		
+      </div>
+      <footer class="w3-container w3-teal">
+        <p>GIS John thanks you for your time</p>
+      </footer>
     </div>
 </div>
- 
-    </div>
-  </div>
 
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"></div>
 
-<!-- Row -->
-<div class="w3-row-padding w3-padding-hor-16 w3-theme-l1">
+<!-- Main content: shift it to the right by 250 pixels when the sidenav is visible -->
+<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-top:25px">
 
-<div class="w3-half">
-<div class="w3-container w3-padding-hor-16 w3-left w3-half">
-<div class="w3-padding-hor-16 w3-theme-12"><span class="w3-xlarge w3-border-teal w3-bottombar">Our Team</span></div>	
-				
-<div class="w3-row"><br>
+  <div id="myFooter">
+    <div class="w3-container w3-grey w3-padding-hor-16">
 
-<ul class="w3-ul w3-card-4">
-  <li class="w3-padding-hor-16">
-    <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/John.Jpg" class="w3-left w3-circle w3-margin-right" style="width:60px">
-    <span class="w3-large">John Robert Lister</span><br>
-    <span>Founder & Lead GIS Technician</span>
-  </li>
-  <li class="w3-padding-hor-16">
-    <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/Kaci.jpg" class="w3-left w3-circle w3-margin-right" style="width:60px">
-    <span class="w3-large">Kaci Alvarez</span><br>
-    <span>Director of Social Media</span>
-  </li>  
-  <li class="w3-padding-hor-16">
-    <img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/odie.jpg" class="w3-left w3-circle w3-margin-right" style="width:60px">
-    <span class="w3-large">Odie the Pitbull</span><br>
-    <span>Animal Relations Expert</span>
-  </li> 
-</ul>
+<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css"
+        rel="stylesheet" type="text/css">
 
-</div>
-</div>
-</div>
-
-<div class="w3-half">
-<div class="w3-card-2 ">
-  <div class="w3-container">
-  <h3>Our Vision:</h3>
-  <h4>We need to ensure the people are able to keep up with the technological evolution this continent is undergoing, our mission at GISJohn is to provide the people and businesses of this country, access to easily interpretable Spatial Data, whether it be for simple or complex purposes. </h4>
-  <h3>Our Mission for Africa:  </h3>
-  <h4>To provide South African Businesses with Geographic Information Systems and services to allow them to reach their full potential, let us help you, help South Africa.</h4>
-  <p>Click the teal and white expand button to learn about our live applications</p>
-  </div>
-  </div>
-  <!-- Container -->
-<div class="w3-container" style="position:relative">
-  <a onclick="w3_open()" class="w3-btn-floating-large w3-teal" style="position:absolute;top:-28px;right:24px;z-index:0;">
-  <i class="fa fa-plus"></i></a>
-</div>
-</div>
-
-<div class="w3-whole">
-<div class="w3-card-3 w3-center">
-  <div class="w3-container">
-  </div>
-  </div>
-</div>
-</div>
-
-
-
-<!-- Container -->
-<div class="w3-container w3-padding-hor-16 w3-theme-l2">
-<div class="w3-container w3-padding-hor-16 w3-left w3-half">
-
-<div class="w3-padding-hor-16 w3-theme-12"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>				
-<div class="w3-row"><br>
-
-<ul class="w3-ul w3-card-4">
-  <li class="w3-padding-hor-16">
-<p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>GISJohnecs@gmail.com</p>
-  </li>
-    <li class="w3-padding-hor-16">
-<a class="w3-btn-floating w3-teal" href="https://www.facebook.com/GISJohnSolutionsForAfrica/?ref=bookmarks" title="Facebook"><i class="fa fa-facebook"></i></a> 
-  <a class="w3-btn-floating w3-teal" href="Link to Twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-  <a class="w3-btn-floating w3-teal" href="Google Plus+" title="Google +"><i class="fa fa-google-plus"></i></a>
-  <a class="w3-btn-floating w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-  </li> 
-  <li class="w3-padding-hor-16">
-   <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>Serving Africa</p>
-      
-  </li>  
-</ul>
-
-</div>
-</div>
-<!-- Google Maps -->
-<div class="w3-half" id="googleMap" style="width:50%;height:350px;"></div>
-</div>
-
-
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
-var SouthAfrica = new google.maps.LatLng(-30.5595, 22.9375);
-
-function initialize() {
-var mapProp = {
-  center:SouthAfrica,
-  zoom:5,
-  scrollwheel:false,
-  draggable:false,
-  mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-var marker = new google.maps.Marker({
-  position:SouthAfrica,
-});
-
-marker.setMap(map);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-
-
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-hor-32 w3-theme-d1 w3-center">
-  <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-
-  <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-    <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>   
-    <a class="w3-btn w3-theme" href="#myPage"><span class="w3-xlarge">
-    <i class="fa fa-chevron-circle-up"></i></span></a>
-  </div>				
-</footer>
-
-<!-- Script For Side Navigation -->
-<script>
-function w3_open() {
-    document.getElementsByClassName("w3-sidenav")[0].style.width = "300px";
-    document.getElementsByClassName("w3-sidenav")[0].style.textAlign = "center";
-    document.getElementsByClassName("w3-sidenav")[0].style.fontSize = "40px";
-    document.getElementsByClassName("w3-sidenav")[0].style.paddingTop = "10%";
-    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
-}
-function w3_close() {
-    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
-}
-
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbC9hHZT51Sm2ZCFok4ciJg_9iyss8h4A"></script> <!--API BELONGS TO JOHN LISTER-->
+<script type="text/javascript" src="https://GISJohnECS.github.io/MapProj.js"></script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="height:90%; width:100%;"></div>
 </body>
 </html>
