@@ -39,7 +39,7 @@ layers[3] = new google.maps.FusionTablesLayer({ //Load Borders Layer
       });
 layers[4] = new google.maps.KmlLayer('https://GISJohnECS.github.io/NationalGrid.kmz', { preserveViewport: true });	  
 layers[5] = new google.maps.KmlLayer('https://GISJohnECS.github.io/Cities1.kmz', { preserveViewport: true });
-layers[6] = new google.maps.KmlLayer('https://GISJohnECS.github.io/BarProportion.kmz', { preserveViewport: true });
+layers[6] = new google.maps.KmlLayer('https://GISJohnECS.github.io/bigproportion.kmz', { preserveViewport: true });
 layers[7] = new google.maps.KmlLayer('https://GISJohnECS.github.io/CoalFiredStation.kmz', { preserveViewport: true });
 layers[8] = new google.maps.KmlLayer('https://GISJohnECS.github.io/DieselGasTurbineStation.kmz', { preserveViewport: true });
 layers[9] = new google.maps.KmlLayer('https://GISJohnECS.github.io/HydroElectricPowerStation.kmz', { preserveViewport: true });
