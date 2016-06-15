@@ -1,0 +1,260 @@
+<html>
+<head>
+<title>Open Census Apllication</title>
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+.w3-sidenav a,.w3-sidenav h4{padding:12px;}
+.w3-navbar a{padding-top:12px !important;padding-bottom:12px !important;}
+      #map {
+        height: 600px;
+      }
+</style>
+
+<!-- Navbar -->
+<ul class="w3-navbar w3-theme w3-grey w3-top w3-left-align w3-large" style="z-index:4;">
+  <li class="w3-opennav w3-right w3-hide-large">
+    <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+  </li>
+  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-globe"><i class="fa fa-globe w3-margin-right"></i>Testing GeoJSON files</a></li>
+  
+
+  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-refresh"><i class="fa fa-refresh w3-margin-right"></i>Reset Map</a></li>
+ </ul>
+    <title>Open Census App</title>
+ 
+<<!-- Sidenav -->
+<nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-ana-teal-blue" style="z-index:3;width:250px;margin-top:21px;">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <a href="#" class="w3-border-bottom w3-large"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/CBI.png" style="width:80%;"></a>
+ 
+<div class="w3-padding-hor-8"> </div>
+ <form class="w3-container w3-card-4">
+<li class="w3-dropdown-hover w3-padding-hor-4 w3-light-grey ">
+    <a href="#"  class="fa fa-bars w3-margin-right  w3-medium w3-border-teal w3-bottombar">Toggle Overlays</a>
+    <div class="w3-dropdown-content w3-white w3-card-4 w3-padding-hor-4">
+ <input class="w3-check" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"/>
+<label class="w3-validate ">Segments</label></br>
+<input class="w3-check"  type="checkbox"  id="layer_02" onclick="toggleLayers(1);"/>
+<label class="w3-validate">Road Names</label></br>
+
+
+
+
+ </form>
+	</div>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidenav is visible -->
+<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-top:25px">
+
+  <div id="myFooter">
+    <div class="w3-container w3-grey w3-padding-hor-16">
+
+<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css"
+        rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbC9hHZT51Sm2ZCFok4ciJg_9iyss8h4A"></script> <!--API BELONGS TO JOHN LISTER-->
+<script type="text/javascript">
+
+
+var layers=[]; 
+var labels=[];//Toggle Road Layers		
+ /*Copyright (C) John Robert Lister 2016
+*/
+
+var map;
+var RoadNameLabels;
+var SegRoadabels;
+function initialize() {
+  var styles = [
+    {
+      stylers: [
+        { hue: "#27C993" },
+        { saturation: -20}
+      ]
+    },{
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        { lightness: 200		},
+		 { hue: "#ffffff" },
+        { visibility: "simplified" }
+      ]
+    },{
+      featureType: "all",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }
+  ];
+  
+  // Create a new StyledMapType object, passing it the array of styles,
+  var styledMap = new google.maps.StyledMapType(styles,
+    {name: "Styled Map"});
+	
+    map = new google.maps.Map(document.getElementById('map_canvas'), { //create a variable for the google map
+          center: new google.maps.LatLng(-26.17383011,28.72778439), //centre it over guinea
+          zoom: 14, //zoom level where all points are visible
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map-style'] //the maptypeId
+        });
+		
+		
+labels[1] = new google.maps.KmlLayer({
+    url: 'https://GISJohnECS.github.io/LabelLeeuwPanRoadNew.kmz',
+    zIndex: 2,
+    preserveViewport: true,
+	//map: map
+  });  
+/*labels[0] = new google.maps.KmlLayer({
+    url: 'https://GISJohnECS.github.io/TestLabelZ1.kmz',
+    zIndex: 2,
+    preserveViewport: true,
+	//map: map
+  });   
+*/
+//Define Segmented and Road Name variables as being GeoJSON Layers	 
+layers[0] = new google.maps.Data({
+	zIndex: 0,
+    preserveViewport: true,
+	suppressInfoWindows: true,
+});	 
+
+layers[1] = new google.maps.Data({
+	zIndex: 2,
+    preserveViewport: true,
+	suppressInfoWindows: true,
+	//map: map
+});
+	layers[0].loadGeoJson('https://GISJohnECS.github.io/SegRoadJSON.geojson');
+    layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
+	
+	
+layers[1].setStyle({
+    fillColor: 'grey',
+	//fillOpacity: 0.5,
+	strokeColor: 'black',
+	//strokeOpacity: 0.7,
+    strokeWeight: 1,
+	zIndex: 0
+  });
+
+layers[0].setStyle({
+    fillColor: 'white',
+	fillOpacity: 0.5,
+	strokeColor: 'grey',
+	strokeOpacity: 0.7,
+    strokeWeight: 1
+  });
+	
+		//Associate the styled map with the MapTypeId and set it to display.
+  map.mapTypes.set('map_style', styledMap);
+  map.setMapTypeId('map_style');
+  
+google.maps.event.addListener(map, 'zoom_changed', function() {
+    zoomLevel = map.getZoom();
+    if (zoomLevel <= 18) {
+        labels[1].setMap(map);
+    } 
+	else {
+        labels[1].setMap(null);
+    }
+});
+        var infowindow = new google.maps.InfoWindow();
+    layers[1].addListener('click', function(event) {
+       
+var GPSLogID =   event.feature.getProperty('gpslogid');
+	  var CreatedDate =   event.feature.getProperty('createddat');
+	  var RoadNam=   event.feature.getProperty('GPSLogs_ro');
+	  var pp = [];
+	  var i;
+	  var jj;
+	  var newHTML = [];
+
+		var jj = newHTML.join("");
+		
+	  var myHTMLss = '<table>' +
+	         jj +
+			 '<tr><td>Road Name:</td><td>'+RoadNam+'</td></tr>'  +
+	      '<tr><td>GPSLogId:</td><td>'+GPSLogID+'</td></tr>' + 
+		  '<tr><td>Created Date and Time:</td><td>'+CreatedDate+'</td></tr>' +
+	      '</table>';
+      infowindow.setContent(myHTMLss);
+      infowindow.setPosition(event.latLng);
+      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30), Zoom: 30});
+      infowindow.open(map);
+	 
+	  
+  });
+  
+  layers[0].addListener('click', function(event) {
+       
+	
+      var GPSLogID =   event.feature.getProperty('gpslogid');
+	  var Pin =   event.feature.getProperty('createddat');
+	  var Current_ow =   event.feature.getProperty('GPSLogs_ro');
+	  var SegName =   event.feature.getProperty('PageName');
+	  var lat =   event.feature.getProperty('lat');
+	  var lon =   event.feature.getProperty('lon');
+	  var pp = [];
+	  var i;
+	  var jj;
+	  var newHTML = [];
+
+		var jj = newHTML.join("");
+		
+	  var myHTMLss = '<table>' +
+	         jj +
+			 '<tr><td>Segment ID:</td><td>'+SegName+'</td></tr>'  +
+	      '<tr><td>GPSLogId:</td><td>'+GPSLogID+'</td></tr>' + 
+		  '<tr><td>Created Date and Time:</td><td>'+Pin+'</td></tr>' +
+	      '</table>';
+      infowindow.setContent(myHTMLss);
+      infowindow.setPosition(event.latLng);
+      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30), Zoom: 30});
+      infowindow.open(map);
+  });
+}
+function toggleLayers(i)
+{
+  if(layers[i].getMap()==null) {   
+      layers[i].setMap(map); 
+  } 
+  else {
+     layers[i].setMap(null);
+}
+}
+
+</script>
+<script>
+// Script to open and close the sidenav
+function w3_open() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+    document.getElementsByClassName("w3-overlay")[0].style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+    document.getElementsByClassName("w3-overlay")[0].style.display = "none";
+}
+</script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="height:90%; width:100%;"></div>
+</body>
+</html>
