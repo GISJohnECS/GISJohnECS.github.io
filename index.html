@@ -28,7 +28,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
   <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-refresh"><i class="fa fa-refresh w3-margin-right"></i>Reset Map</a></li>
  </ul>
-    <title>Open Census App</title>
+    <title>Testing GeoJSON</title>
  
 <<!-- Sidenav -->
 <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-ana-teal-blue" style="z-index:3;width:250px;margin-top:21px;">
@@ -45,8 +45,15 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <label class="w3-validate">Road Names</label></br>
 </form></div></div>
 </nav>
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"></div>
+
+
 </head>
   <body>
+  <!-- Main content: shift it to the right by 250 pixels when the sidenav is visible -->
+<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-top:25px">
     <div id="map"></div>
     <script>
 	  var layers=[]; 
@@ -97,9 +104,9 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 //-----------------------------------------------------------------------------------------------------------------
 //Set Style for the Segmented Layer
         layers[0].setStyle(function(feature) {
-          var color = feature.getProperty('colour');
+          var color = feature.getProperty('Colour');
           if (feature.getProperty('isColorful')) {
-            color = feature.getProperty('colour');
+            color = feature.getProperty('Colour');
           }
           return /** @type {google.maps.Data.StyleOptions} */({
             fillColor: color,
