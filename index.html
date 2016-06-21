@@ -41,7 +41,7 @@
         map.data.setStyle(function(feature) {
           var color = 'tan';
           if (feature.getProperty('isColorful')) {
-            color = feature.getProperty('Colour');
+            color = feature.getProperty('colour');
           }
           return /** @type {google.maps.Data.StyleOptions} */({
             fillColor: color,
@@ -63,9 +63,9 @@
         var infowindow = new google.maps.InfoWindow();
         // When the user clicks, set 'isColorful', changing the color of the letters.
         map.data.addListener('click', function(event) {
-		  var GPSLogID =   event.feature.getProperty('GPSlogId');
-	  var CreatedDate =   event.feature.getProperty('table_startdatetime');
-	  var RoadNam=   event.feature.getProperty('table_roadname');
+		  var GPSLogID =   event.feature.getProperty('gpslogId');
+	  var CreatedDate =   event.feature.getProperty('capturedat');
+	  var RoadNam=   event.feature.getProperty('roadname');
 	  var pp = [];
 	  var i;
 	  var jj;
