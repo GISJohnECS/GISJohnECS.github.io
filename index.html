@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Open Census Apllication</title>
+    <title>Testing GeoJSON</title>
  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
     <i class="fa fa-remove"></i>
   </a>
-  <a href="#" class="w3-border-bottom w3-large"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/ecs_logo.jpg" style="width:80%;"></a>
+  <!--<a href="#" class="w3-border-bottom w3-large"><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/ecs_logo.jpg" style="width:80%;"></a>-->
  
 <div class="w3-padding-hor-8"> </div>
  <form class="w3-container w3-card-4">
@@ -75,7 +75,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     url: 'https://GISJohnECS.github.io/LabelLeeuwPanRoadNew.kmz',
     zIndex: 2,
     preserveViewport: true,
-	//map: map
+	map: map
   });  
 //---------------------------------------------------------------------------------------------------------
   
@@ -135,7 +135,7 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 		//Layers appearance on zoom function
 		google.maps.event.addListener(map, 'zoom_changed', function() {
     zoomLevel = map.getZoom();
-    if (zoomLevel <= 18) {
+    if (zoomLevel <= 19) {
         labels[1].setMap(map);
     } 
 	else {
@@ -151,9 +151,9 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 //Set InfoWindow Layout for Segmented Road Layer		
        layers[0].addListener('click', function(event) {
 	  var SegmentID = event.feature.getProperty('SegId');
-	  var GPSLogID =   event.feature.getProperty('gpslogid');
-	  var CreatedDate =   event.feature.getProperty('capturedat');
-	  var RoadNam=   event.feature.getProperty('roadname');
+	  var GPSLogID =   event.feature.getProperty('GPSlogId');
+	  var CreatedDate =   event.feature.getProperty('CaptureDat');
+	  var RoadNam=   event.feature.getProperty('RoadName');
 	  var pp = [];
 	  var i;
 	  var jj;
@@ -166,7 +166,7 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 			 '<tr><td><b>Segment ID:</b></td><td>'+SegmentID+'</td></tr>'  +
 			 '<tr><td><b>Road Name:</b></td><td>'+RoadNam+'</td></tr>'  +
 	      '<tr><td><b>GPSLogId:</b></td><td>'+GPSLogID+'</td></tr>' + 
-		  '<tr><td><b>Created Date and Time:</b></td><td>'+CreatedDate+'</td></tr>' +
+		  '<tr><td><b>Created Date:</b></td><td>'+CreatedDate+'</td></tr>' +
 		  '<td colspan = 4><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/ecs_logo.jpg" alt="" border=0 height=100 width=125></img></td>' +
 	      '</table>';
       infowindow.setContent(myHTMLss);
