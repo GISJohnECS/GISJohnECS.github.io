@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Testing GeoJSON</title>
+    <title>MC 75-A GPS Accuracy test</title>
  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 .w3-sidenav a,.w3-sidenav h4{padding:12px;}
 .w3-navbar a{padding-top:12px !important;padding-bottom:12px !important;}
       #map {
-        height: 600px;
+        height: 900px;
       }
 </style>
 
@@ -23,12 +23,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   <li class="w3-opennav w3-right w3-hide-large">
     <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-globe"><i class="fa fa-globe w3-margin-right"></i>Testing GeoJSON files</a></li>
+  <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-globe"><i class="fa fa-globe w3-margin-right"></i>MC 75-A GPS Accuracy test</a></li>
   
 
   <li><a href="http://gisjohnecs.github.io/" class="w3-theme-l1 fa-fa-refresh"><i class="fa fa-refresh w3-margin-right"></i>Reset Map</a></li>
  </ul>
-    <title>Testing GeoJSON</title>
+    <title>GPS Accuracy Test</title>
  
 <<!-- Sidenav -->
 <nav class="w3-sidenav w3-collapse w3-light-grey w3-animate-left w3-ana-teal-blue" style="z-index:3;width:250px;margin-top:21px;">
@@ -39,10 +39,10 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
  
 <div class="w3-padding-hor-8"> </div>
  <form class="w3-container w3-card-4">
- <input class="w3-check" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"/>
-<label class="w3-validate ">Segments</label></br>
-<input class="w3-check"  type="checkbox"  id="layer_02" onclick="toggleLayers(1);" checked>
-<label class="w3-validate">Road Names</label></br>
+ <input class="w3-check" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"checked>
+<label class="w3-validate ">GPS Points</label></br>
+<input class="w3-check"  type="checkbox"  id="layer_03" onclick="toggleLayers(2);" checked>
+<label class="w3-validate">GPS Test</label></br>
 </form></div></div>
 </nav>
 <!-- Overlay effect when opening sidenav on small screens -->
@@ -65,29 +65,23 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: {lat: -26.163849, lng: 28.759490}
+          zoom: 12,
+          center: {lat: -29.819494, lng: 30.857061} 
         });
 //--------------------------------------------------------------------------------------------------------------------
-		
-//Set KMZ label for Road Names		
-		labels[1] = new google.maps.KmlLayer({
-    url: 'https://GISJohnECS.github.io/LabelLeeuwPanRoadNew.kmz',
-    zIndex: 2,
-    preserveViewport: true,
-	map: map
-  });  
-//---------------------------------------------------------------------------------------------------------
-  
+
 //--------------------------------------------------------------------------------------------------------------  
   //Declare Segmented Road Layer
-layers[0] = new google.maps.Data({
-	zIndex: 2,
-    preserveViewport: true,
-	suppressInfoWindows: true,
-	//map: map
-});  
-layers[0].loadGeoJson('https://GISJohnECS.github.io/SegRoadJSON.geojson');
+layers[0] = new google.maps.FusionTablesLayer({ //Load Lighting Layer
+        query: {
+          select: 'geometry', //select from the location column of table
+          from:'1y5tAgnxVWE6iy9YnBnG56OA7h7OK81W_7lG-5YRp' //table id
+        },
+        
+   styleId: 2, //style id matches that was specified in fusion table features
+   templateId: 2, //teplate id matches that of fusion table
+   map: map
+      });
 //-------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------
@@ -100,21 +94,17 @@ layers[1] = new google.maps.Data({
 });
 layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 //----------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------
+ //Declare OOM GPS TEST LAYER
+layers[2] = new google.maps.Data({
+	zIndex: 2,
+    preserveViewport: true,
+	suppressInfoWindows: true,
+	map: map
+});
+layers[2].loadGeoJson('https://GISJohnECS.github.io/Oom.geojson');
+//----------------------------------------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------------------------------------------
-//Set Style for the Segmented Layer
-        layers[0].setStyle(function(feature) {
-          var color = feature.getProperty('Colour');
-          if (feature.getProperty('isColorful')) {
-            color = feature.getProperty('Colour');
-          }
-          return /** @type {google.maps.Data.StyleOptions} */({
-            fillColor: color,
-			fillOpacity: 0.75,
-            strokeColor: 'black',
-            strokeWeight: 0.5
-          });
-        });
 
 //----------------------------------------------------------------------------------------------------------
 //Set Style for the Road Layer		
@@ -130,6 +120,13 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
             strokeWeight: 0.5
           });
         });
+//-------------------------------------------------------------------------------------------------------
+//Set Style for the GPS Test Layer	
+		layers[2].setStyle({
+            strokeColor: '#18FFFF',
+            strokeWeight: 1.0,
+			strokeOpacity: 1.0
+          });
 //-------------------------------------------------------------------------------------------------------
 
 		//Layers appearance on zoom function
@@ -148,44 +145,7 @@ layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
         var infowindow = new google.maps.InfoWindow();
 		
 //-----------------------------------------------------------------------------------------------------
-//Set InfoWindow Layout for Segmented Road Layer		
-       layers[0].addListener('click', function(event) {
-	  var SegmentID = event.feature.getProperty('SegId');
-	  var GPSLogID =   event.feature.getProperty('GPSlogId');
-	  var CreatedDate =   event.feature.getProperty('CaptureDat');
-	  var RoadNam=   event.feature.getProperty('RoadName');
-	  var pp = [];
-	  var i;
-	  var jj;
-	  var newHTML = [];
-
-		var jj = newHTML.join("");
-		
-	  var myHTMLss = '<table>' +
-	         jj +
-			 '<tr><td><b>Segment ID:</b></td><td>'+SegmentID+'</td></tr>'  +
-			 '<tr><td><b>Road Name:</b></td><td>'+RoadNam+'</td></tr>'  +
-	      '<tr><td><b>GPSLogId:</b></td><td>'+GPSLogID+'</td></tr>' + 
-		  '<tr><td><b>Created Date:</b></td><td>'+CreatedDate+'</td></tr>' +
-		  '<td colspan = 4><img src="https://googledrive.com/host/0By8aK2KY8i6wcmdlZ0x0WDd5aVk/ecs_logo.jpg" alt="" border=0 height=100 width=125></img></td>' +
-	      '</table>';
-      infowindow.setContent(myHTMLss);
-      infowindow.setPosition(event.latLng);
-      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30), Zoom: 30});
-      infowindow.open(map);
-          //event.feature.setProperty('isColorful', true);
-        });
-//Highlight Outline for Segmented layer with Mouse Over 
-        layers[0].addListener('mouseover', function(event) {
-           layers[0].revertStyle();
-           layers[0].overrideStyle(event.feature, {strokeWeight: 1});
-        });
-
-         layers[0].addListener('mouseout', function(event) {
-          layers[0].revertStyle();
-        });
-		
-//-------------------------------------------------------------------------------------------		
+	
 
 //-------------------------------------------------------------------------------------------		
 		//Set InfoWindow Layout for Road Name Layer
