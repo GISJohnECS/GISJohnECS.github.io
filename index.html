@@ -70,18 +70,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         });
 //--------------------------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------------------  
-  //Declare Segmented Road Layer
-layers[0] = new google.maps.FusionTablesLayer({ //Load Lighting Layer
-        query: {
-          select: 'geometry', //select from the location column of table
-          from:'1y5tAgnxVWE6iy9YnBnG56OA7h7OK81W_7lG-5YRp' //table id
-        },
-        
-   styleId: 2, //style id matches that was specified in fusion table features
-   templateId: 2, //teplate id matches that of fusion table
-   map: map
-      });
+
 //-------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------
@@ -94,24 +83,13 @@ layers[1] = new google.maps.Data({
 });
 layers[1].loadGeoJson('https://GISJohnECS.github.io/RoadNameJSON.geojson');
 //----------------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------
- //Declare OOM GPS TEST LAYER
-layers[2] = new google.maps.Data({
-	zIndex: 2,
-    preserveViewport: true,
-	suppressInfoWindows: true,
-	map: map
-});
-layers[2].loadGeoJson('https://GISJohnECS.github.io/Oom.geojson');
-//----------------------------------------------------------------------------------------------------------------
-
 
 //----------------------------------------------------------------------------------------------------------
 //Set Style for the Road Layer		
 		layers[1].setStyle(function(feature) {
-          var color = feature.getProperty('colour');
+          var color = feature.getProperty('Colour');
           if (feature.getProperty('isColorful')) {
-            color = feature.getProperty('colour');
+            color = feature.getProperty('Colour');
           }
           return /** @type {google.maps.Data.StyleOptions} */({
             fillColor: color,
@@ -120,14 +98,7 @@ layers[2].loadGeoJson('https://GISJohnECS.github.io/Oom.geojson');
             strokeWeight: 0.5
           });
         });
-//-------------------------------------------------------------------------------------------------------
-//Set Style for the GPS Test Layer	
-		layers[2].setStyle({
-            strokeColor: '#18FFFF',
-            strokeWeight: 1.0,
-			strokeOpacity: 1.0
-          });
-//-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 		//Layers appearance on zoom function
 		google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -150,9 +121,9 @@ layers[2].loadGeoJson('https://GISJohnECS.github.io/Oom.geojson');
 //-------------------------------------------------------------------------------------------		
 		//Set InfoWindow Layout for Road Name Layer
 		  layers[1].addListener('click', function(event) {
-		  var GPSLogID =   event.feature.getProperty('gpslogid');
-	  var CreatedDate =   event.feature.getProperty('capturedat');
-	  var RoadNam=   event.feature.getProperty('roadname');
+		  var GPSLogID =   event.feature.getProperty('gpslogid_3');
+	  var CreatedDate =   event.feature.getProperty('createddat_1');
+	  var RoadNam=   event.feature.getProperty('roadname_3');
 	  var pp = [];
 	  var i;
 	  var jj;
