@@ -1,14 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>Poli-Census</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css" /><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
   body {
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
@@ -38,11 +42,11 @@
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
-  </style>
-</head>
-<body>
-
-<!-- Navbar -->
+        </style>
+        <title></title>
+    </head>
+    <body>
+	<!-- Navbar -->
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
@@ -54,110 +58,206 @@
       <a class="navbar-brand" href="Index.html">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-left:3px;">
-			<input class="" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"checked><br>
-			<input class="" type="checkbox"  id="layer_01" onclick="toggleLayers(0);"checked><p></p>
-      </ul>
     </div>
   </div>
 </nav>
+        <div id="map" style="height:600px;width:100%;">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-heat.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/OSMBuildings-Leaflet.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/leaflet-tilelayer-wmts.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/PoliCensusVoterPrec0.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
 
-
-<!-- Map Container -->
-<div id="map" style="height:600px;width:100%;">
-    <script>
-function initMap() {
-        // Styles a map in night mode.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.674, lng: -73.945},
-          zoom: 12,
-          styles: [
-            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-            {
-              featureType: 'administrative.locality',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry',
-              stylers: [{color: '#38414e'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#212a37'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#9ca5b3'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry',
-              stylers: [{color: '#746855'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#1f2835'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#f3d19c'}]
-            },
-            {
-              featureType: 'transit',
-              elementType: 'geometry',
-              stylers: [{color: '#2f3948'}]
-            },
-            {
-              featureType: 'transit.station',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#515c6d'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{color: '#17263c'}]
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#00FFFF',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#00FFFF',
+                fillOpacity: 1
+              });
             }
-          ]
+        }
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
         });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbC9hHZT51Sm2ZCFok4ciJg_9iyss8h4A&callback=initMap">
-    </script>
-</div>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:5
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        function geoJson2heat(geojson, weight) {
+          return geojson.features.map(function(feature) {
+            return [
+              feature.geometry.coordinates[1],
+              feature.geometry.coordinates[0],
+              feature.properties[weight]
+            ];
+          });
+        }
+        function pop_PoliCensusVoterPrec0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    layer.setStyle(style_PoliCensusVoterPrec0_0(feature));
 
-</body>
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>CountyID</strong><br />' + (feature.properties['CNTY'] !== null ? Autolinker.link(String(feature.properties['CNTY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cntykey'] !== null ? Autolinker.link(String(feature.properties['cntykey'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Democratic Percentage 2012</th>\
+                        <td>' + (feature.properties['DEM_PER'] !== null ? Autolinker.link(String(feature.properties['DEM_PER'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Republican Percentage 2012</th>\
+                        <td>' + (feature.properties['REP_PER'] !== null ? Autolinker.link(String(feature.properties['REP_PER'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['RD_DIFF'] !== null ? Autolinker.link(String(feature.properties['RD_DIFF'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function style_PoliCensusVoterPrec0_0(feature) {
+            if (feature.properties['RD_DIFF'] >= -89.000000 && feature.properties['RD_DIFF'] <= -63.571429 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(5,113,176,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= -63.571429 && feature.properties['RD_DIFF'] <= -44.857143 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(99,169,207,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= -44.857143 && feature.properties['RD_DIFF'] <= -16.714286 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(180,214,231,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= -16.714286 && feature.properties['RD_DIFF'] <= 9.365714 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(247,247,247,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= 9.365714 && feature.properties['RD_DIFF'] <= 29.842857 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(245,193,169,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= 29.842857 && feature.properties['RD_DIFF'] <= 47.128571 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(230,110,97,0.69)',
+            }
+            }
+            if (feature.properties['RD_DIFF'] >= 47.128571 && feature.properties['RD_DIFF'] <= 80.500000 ) {
+                return {
+                pane: 'pane_PoliCensusVoterPrec0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.69)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(202,0,32,0.69)',
+            }
+            }
+        }
+        map.createPane('pane_PoliCensusVoterPrec0');
+        map.getPane('pane_PoliCensusVoterPrec0').style.zIndex = 400;
+        map.getPane('pane_PoliCensusVoterPrec0').style['mix-blend-mode'] = 'normal';
+    var layer_PoliCensusVoterPrec0 = new L.geoJson(json_PoliCensusVoterPrec0, {
+        attribution: '<a href=""></a>',
+        pane: 'pane_PoliCensusVoterPrec0',
+        onEachFeature: pop_PoliCensusVoterPrec0,
+        style: style_PoliCensusVoterPrec0_0,
+    });
+        bounds_group.addLayer(layer_PoliCensusVoterPrec0);
+        map.addLayer(layer_PoliCensusVoterPrec0);
+        setBounds();
+        </script>
+    </body>
 </html>
