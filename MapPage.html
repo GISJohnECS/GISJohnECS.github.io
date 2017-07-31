@@ -131,21 +131,12 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>CountyID</strong><br />' + (feature.properties['CNTY'] !== null ? Autolinker.link(String(feature.properties['CNTY'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['cntykey'] !== null ? Autolinker.link(String(feature.properties['cntykey'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Democratic Percentage 2012</th>\
+                        <th scope="row">Dem %: </th>\
                         <td>' + (feature.properties['DEM_PER'] !== null ? Autolinker.link(String(feature.properties['DEM_PER'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Republican Percentage 2012</th>\
+                        <th scope="row">GOP %: </th>\
                         <td>' + (feature.properties['REP_PER'] !== null ? Autolinker.link(String(feature.properties['REP_PER'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['RD_DIFF'] !== null ? Autolinker.link(String(feature.properties['RD_DIFF'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent);
@@ -159,7 +150,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(5,113,176,0.69)',
             }
@@ -172,7 +163,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(99,169,207,0.69)',
             }
@@ -185,7 +176,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(180,214,231,0.69)',
             }
@@ -198,7 +189,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(247,247,247,0.69)',
             }
@@ -211,7 +202,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(245,193,169,0.69)',
             }
@@ -224,7 +215,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(230,110,97,0.69)',
             }
@@ -237,7 +228,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 0.1, 
                 fillOpacity: 1,
                 fillColor: 'rgba(202,0,32,0.69)',
             }
